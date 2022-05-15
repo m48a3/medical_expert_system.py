@@ -1,13 +1,4 @@
-Jaundice
-Alzheimers
-Arthritis
-Tuberculosis
-Asthma
-Sinusitis
-Epilepsy
-Heart Disease
+Gastritis
 Diabetes
-Glaucoma
-Hyperthyroidism
-Heat Stroke
-Hypothermia
+Vipil_pivo
+bolit_zivot

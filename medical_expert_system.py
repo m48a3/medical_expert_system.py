@@ -54,14 +54,62 @@ def if_not_matched(disease):
 		print("The common medications and procedures suggested by other real doctors are: \n")
 		print(treatments+"\n")
 
-# @my_decorator is just a way of saying just_some_function = my_decorator(just_some_function)
-#def identify_disease(headache, back_pain, chest_pain, cough, fainting, sore_throat, fatigue, restlessness,low_body_temp ,fever,sunken_eyes):
+
 class Greetings(KnowledgeEngine):
 	@DefFacts()
 	def _initial_action(self):
 		print("")
-		print("Hi! I am Dr.Yar, I am here to help you make your health better.")
-		print("For that you'll have to answer a few questions about your conditions")
+		print("Lab2.Vipolnil student Kovalev Ivan.Gruppa IKPI-91.")
+		print("This is a expert system,which try to predict your disease")
+
+		while(1):
+			print("the list of diseases: ")
+			diseases_show = open("diseases.txt")
+			diseases_t_show = diseases_show.read()
+			diseases_list_show = diseases_t_show.split("\n")
+			diseases_show.close()
+			for disease_show in diseases_list_show:
+				print(disease_show)
+			print("Do you want to add new disease?")
+			if input() == ("no" or "No"):
+				break
+			print("Input disease: name")
+			new_disease_name = input()
+			new_filename = new_disease_name + ".txt"
+			diseases = open("diseases.txt", "a+")
+			diseases.write("\n")
+			diseases.write(new_disease_name)
+			diseases.close()
+			print("what you need to do if you ill?")
+			recomendation = input()
+			print("describe the disease")
+			discription = input()
+			answers = ""
+			symtomlist = ["headache","back_pain","chest_pain","cough","fainting","fatigue","sunken_eyes","low_temp","restless","sore_troat","fever","nausea","blured_vision"]
+			for i in range (12):
+				while (1):
+					print("do you have " + symtomlist[i] + " only yes or no!")
+					inputcheck = input()
+					if (inputcheck == "yes" or inputcheck == "no"):
+						break
+					answers = inputcheck + "/n"
+					i+1
+			new_discription_file = open("Disease descriptions/" + new_filename,"w+")
+			new_discription_file.write(discription)
+			new_discription_file.close()
+			new_recomendation_file = open("Disease treatments/" + new_filename,"w+")
+			new_recomendation_file.write(recomendation)
+			new_recomendation_file.close()
+			new_symptoms_file = open("Disease symptoms/" + new_filename,"w+")
+			new_symptoms_file.write(answers)
+			new_symptoms_file.close()
+
+
+
+
+
+
+
 		print("Do you feel any of the following symptoms:")
 		print("")
 		yield Fact(action="find_disease")
@@ -119,57 +167,16 @@ class Greetings(KnowledgeEngine):
 	def symptom_12(self):
 		self.declare(Fact(blurred_vision=input("blurred_vision: ")))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="yes"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
 	def disease_0(self):
-		self.declare(Fact(disease="Jaundice"))
+		self.declare(Fact(disease="Gastritis"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="yes"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_1(self):
-		self.declare(Fact(disease="Alzheimers"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="yes"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_2(self):
-		self.declare(Fact(disease="Arthritis"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_3(self):
-		self.declare(Fact(disease="Tuberculosis"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="yes"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_4(self):
-		self.declare(Fact(disease="Asthma"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_5(self):
-		self.declare(Fact(disease="Sinusitis"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_6(self):
-		self.declare(Fact(disease="Epilepsy"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
-	def disease_7(self):
-		self.declare(Fact(disease="Heart Disease"))
 
 	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="yes"))
-	def disease_8(self):
+	def disease_1(self):
 		self.declare(Fact(disease="Diabetes"))
 
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="yes"))
-	def disease_9(self):
-		self.declare(Fact(disease="Glaucoma"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
-	def disease_10(self):
-		self.declare(Fact(disease="Hyperthyroidism"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
-	def disease_11(self):
-		self.declare(Fact(disease="Heat Stroke"))
-
-	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="no"),Fact(restlessness="no"),Fact(low_body_temp="yes"),Fact(fever="no"),Fact(sunken_eyes="no"),Fact(nausea="no"),Fact(blurred_vision="no"))
-	def disease_12(self):
-		self.declare(Fact(disease="Hypothermia"))
 
 	@Rule(Fact(action='find_disease'),Fact(disease=MATCH.disease),salience = -998)
 	def disease(self, disease):
@@ -179,9 +186,9 @@ class Greetings(KnowledgeEngine):
 		treatments = get_treatments(id_disease)
 		print("")
 		print("The most probable disease that you have is %s\n" %(id_disease))
-		print("A short description of the disease is given below :\n")
+		print("Discription :\n")
 		print(disease_details+"\n")
-		print("The common medications and procedures suggested by other real doctors are: \n")
+		print("What you need to do: \n")
 		print(treatments+"\n")
 
 	@Rule(Fact(action='find_disease'),
@@ -225,4 +232,3 @@ if __name__ == "__main__":
 		print("Would you like to diagnose some other symptoms?")
 		if input() == "no":
 			exit()
-		#print(engine.facts)
