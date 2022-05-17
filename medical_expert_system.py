@@ -84,15 +84,13 @@ class Greetings(KnowledgeEngine):
 			recomendation = input()
 			print("describe the disease")
 			discription = input()
-			answers = ""
+			answerss = ["1","1","1","1","1","1","1","1","1","1","1","1","1"]
+
 			symtomlist = ["headache","back_pain","chest_pain","cough","fainting","fatigue","sunken_eyes","low_temp","restless","sore_troat","fever","nausea","blured_vision"]
-			for i in range (12):
-				while (1):
+			for i in range (13):
 					print("do you have " + symtomlist[i] + " only yes or no!")
 					inputcheck = input()
-					if (inputcheck == "yes" or inputcheck == "no"):
-						break
-					answers = inputcheck + "/n"
+					answerss[i] = inputcheck
 					i+1
 			new_discription_file = open("Disease descriptions/" + new_filename,"w+")
 			new_discription_file.write(discription)
@@ -100,9 +98,13 @@ class Greetings(KnowledgeEngine):
 			new_recomendation_file = open("Disease treatments/" + new_filename,"w+")
 			new_recomendation_file.write(recomendation)
 			new_recomendation_file.close()
-			new_symptoms_file = open("Disease symptoms/" + new_filename,"w+")
-			new_symptoms_file.write(answers)
-			new_symptoms_file.close()
+			# new_symptoms_file = open("Disease symptoms/" + new_filename,"w+")
+			lines = answerss
+			with open("Disease symptoms/" + new_filename,"w+") as file:
+				for  line in lines:
+					file.write(line + '\n')
+			# new_symptoms_file.write(answerss)
+			# new_symptoms_file.close()
 
 
 

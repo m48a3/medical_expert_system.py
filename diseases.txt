@@ -2,3 +2,4 @@ Gastritis
 Diabetes
 Vipil_pivo
 bolit_zivot
+name
